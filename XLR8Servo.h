@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------
   Copyright (c) 2015 Alorim Technology.  All right reserved.
   This file is part of the Alorium Technology XLR8 Servo library.
-  Written by Matt Weber (Matthew.D.Weber@ieee.org) of 
+  Written by Matt Weber (linkedin.com/in/mattweberdesign) of 
     Alorium Technology (info@aloriumtech.com) using the same interface as
     the Arduino Servo library by Michael Margolis, but the XLR8
     implementation is modified to take advantage of the FPGA hardware
@@ -44,18 +44,20 @@
   -And of course, the XLR8Servo library is included. If you are coding only for
     the XLR8 hardware, this is the only line you would need.
 
-  XLR8 Servo is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Lesser General Public License as
-  published by the Free Software Foundation, either version 3 of
-  the License, or (at your option) any later version.
-  XLR8 Servo is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Lesser General Public License for more details.
-  You should have received a copy of the GNU Lesser General Public
-  License along with XLR8 Servo.  If not, see
-  <http://www.gnu.org/licenses/>.
-  --------------------------------------------------------------------*/
+ This library is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as
+ published by the Free Software Foundation, either version 3 of
+ the License, or (at your option) any later version.
+ 
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library.  If not, see
+ <http://www.gnu.org/licenses/>.
+ --------------------------------------------------------------------*/
 
 /* 
   A servo is activated by creating an instance of the Servo class passing 
@@ -85,24 +87,17 @@
 #ifndef XLR8SERVO_H
 #define XLR8SERVO_H
 
+// #ARDUINO_XLR8 is passed from IDE to the compiler if XLR8 is selected properly
+#ifdef ARDUINO_XLR8
+
+
 #include <inttypes.h>
 
-// Architecture specific
-#if defined (__AVR_ATmega328P__)
-#else
-#   warning "XLR8Servo not implemented for selected device"
-#endif
-
-
-#define Servo_VERSION          10     // software version of this library
-
-#define MIN_PULSE_WIDTH       544     // the shortest pulse sent to a servo  
+#define MIN_PULSE_WIDTH       544     // the shortest pulse sent to a servo
 #define MAX_PULSE_WIDTH      2400     // the longest pulse sent to a servo 
 #define DEFAULT_PULSE_WIDTH  1500     // default pulse width when servo is attached
-#define REFRESH_INTERVAL    20000     // minumim time to refresh servos in microseconds 
 
-#define SERVOS_PER_TIMER       20     // the maximum number of servos controlled by one timer
-#define MAX_SERVOS      SERVOS_PER_TIMER
+#define MAX_SERVOS             20     // with current hardware design up to 16 can be independant
 
 #define INVALID_SERVO         255     // flag indicating an invalid servo index
 
@@ -133,5 +128,9 @@ private:
    int8_t min;                       // minimum is this value times 4 added to MIN_PULSE_WIDTH    
    int8_t max;                       // maximum is this value times 4 added to MAX_PULSE_WIDTH   
 };
+
+#else
+#error "XLR8Servo library requires Tools->Board->XLR8xxx selection. Install boards from https://github.com/AloriumTechnology/Arduino_Boards"
+#endif
 
 #endif
