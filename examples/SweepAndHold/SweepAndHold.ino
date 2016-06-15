@@ -1,5 +1,5 @@
 /* SweepAndHold
- Copyright (c) 2016 Alorim Technology.  All right reserved.
+ Copyright (c) 2016 Alorium Technology.  All rights reserved.
  by Matt Weber (linkedin.com/in/mattweber0) of
  Alorium Technology (info@aloriumtech.com)
  

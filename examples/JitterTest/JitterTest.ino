@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------
-  Copyright (c) 2016 Alorim Technology.  All right reserved.
+  Copyright (c) 2016 Alorium Technology.  All rights reserved.
   This file is part of the Alorium Technology XLR8 Servo library.
   Written by Matt Weber (linkedin.com/in/mattweberdesign) of 
     Alorium Technology (info@aloriumtech.com) 
