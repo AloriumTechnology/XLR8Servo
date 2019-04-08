@@ -12,4 +12,6 @@ This library allows an Alorim Technology XLR8 board (a drop-in replacement for A
 It's a drop in replacement for the standard Arduino servo library, but it uses Alorium Technology's XLR8 acceleration hardware to drive the servos so the timing is more precise, doesn't jitter, doesn't depend on interrupt handling, and doesn't cause PWM functionality to be lost.  
 If you have an XLR8 board, this library is better in every way.
 
+This library is compatible with XLR8 board package 1.9.0 and up. For older board packages or for the XLR8 Legacy board image, use XLR8Servo library version 1.1.0.
+
 Using this library is the same as using Arduino's servo library which is very nicely described at http://arduino.cc/en/Reference/Servo
