@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------
- Copyright (c) 2015 Alorim Technology.  All right reserved.
+ Copyright (c) 2015 Alorium Technology.  All right reserved.
  This file is part of the Alorium Technology XLR8 Servo library.
- Written by Matt Weber (linkedin.com/in/mattweberdesign) of
+ Written by Matt Weber (support@aloriumtech.com) of
    Alorium Technology (info@aloriumtech.com) using the same interface as
    the Arduino Servo library by Michael Margolis, but the XLR8
    implementation is modified to take advantage of the FPGA hardware
@@ -27,7 +27,7 @@
 
 #include "XLR8Servo.h"
 
-#define SVCR    _SFR_MEM8(0xFA)
+#define SVCR    _SFR_MEM8(0xFB)
 #define SVPWL   _SFR_MEM8(0xFC)
 #define SVPWH   _SFR_MEM8(0xFD)
 #define SVPW    _SFR_MEM16(0xFC)
