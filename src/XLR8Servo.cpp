@@ -27,7 +27,7 @@
 
 #include "XLR8Servo.h"
 
-#define SVCR    _SFR_MEM8(0xFA)
+#define SVCR    _SFR_MEM8(0xFB)
 #define SVPWL   _SFR_MEM8(0xFC)
 #define SVPWH   _SFR_MEM8(0xFD)
 #define SVPW    _SFR_MEM16(0xFC)
