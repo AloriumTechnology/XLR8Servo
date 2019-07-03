@@ -27,7 +27,7 @@
 
 #include "XLR8Servo.h"
 
-#define SVCR    _SFR_MEM8(0xFB)
+#define SVCR    _SFR_MEM8(0xFA)
 #define SVPWL   _SFR_MEM8(0xFC)
 #define SVPWH   _SFR_MEM8(0xFD)
 #define SVPW    _SFR_MEM16(0xFC)
@@ -83,18 +83,20 @@ void Servo::detach()
   SVCR = (1 << SVDIS) | (servos[this->servoIndex].Pin.nbr & B11111);
 }
 
-void Servo::write(int value)
+void Servo::write(int value, int speed)
 {
   if(value < MIN_PULSE_WIDTH)
   {  // treat values less than 544 as angles in degrees (valid values in microseconds are handled as microseconds)
     if(value < 0) value = 0;
     if(value > 180) value = 180;
     value = map(value, 0, 180, SERVO_MIN(),  SERVO_MAX());
+    if (speed > 15) speed = 15; 
+    else if (speed < 0) speed = 0;
   }
-  this->writeMicroseconds(value);
+  this->writeMicroseconds(value, speed);
 }
 
-void Servo::writeMicroseconds(int value)
+void Servo::writeMicroseconds(int value, int speed)
 {
   // calculate and store the values for the given channel
   byte channel = this->servoIndex;
@@ -104,12 +106,14 @@ void Servo::writeMicroseconds(int value)
       value = SERVO_MIN();
     else if( value > SERVO_MAX() )
       value = SERVO_MAX();
+    if (speed > 15) speed = 15;
+    else if (speed < 0) speed = 0;
 
     uint8_t oldSREG = SREG;
     cli();
     servos[channel].microseconds = value;
     // Copy new value to the hardware
-    SVPW = servos[channel].microseconds;
+    SVPW = (0xF000 & (speed << 12)) | (0x0FFF & servos[channel].microseconds);
     SVCR = (1 << SVUP) | (servos[channel].Pin.nbr & B11111);
     SREG = oldSREG;
   }

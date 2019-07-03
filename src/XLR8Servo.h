@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------
-  Copyright (c) 2015 Alorim Technology.  All right reserved.
+  Copyright (c) 2015 Alorium Technology.  All right reserved.
   This file is part of the Alorium Technology XLR8 Servo library.
-  Written by Matt Weber (linkedin.com/in/mattweberdesign) of 
+  Written by Matt Weber (support@aloriumtech.com) of 
     Alorium Technology (info@aloriumtech.com) using the same interface as
     the Arduino Servo library by Michael Margolis, but the XLR8
     implementation is modified to take advantage of the FPGA hardware
@@ -118,8 +118,8 @@ public:
   uint8_t attach(int pin);           // attach the given pin to the next free channel, sets pinMode, returns channel number or 0 if failure
   uint8_t attach(int pin, int min, int max); // as above but also sets min and max values for writes. 
   void detach();
-  void write(int value);             // if value is < 200 its treated as an angle, otherwise as pulse width in microseconds 
-  void writeMicroseconds(int value); // Write pulse width in microseconds 
+  void write(int value, int speed = 0);             // if value is < 200 its treated as an angle, otherwise as pulse width in microseconds 
+  void writeMicroseconds(int value, int speed = 0); // Write pulse width in microseconds 
   int read();                        // returns current pulse width as an angle between 0 and 180 degrees
   int readMicroseconds();            // returns current pulse width in microseconds for this servo
   bool attached();                   // return true if this servo is attached, otherwise false 
