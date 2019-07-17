@@ -20,7 +20,7 @@ If you have an XLR8 board, this library is better in every way.
 
 This library is compatible with XLR8 board package 1.9.0 and up. For older board packages or for the XLR8 Legacy board image, use XLR8Servo library version 1.1.0.
 
-As of library version 1.2.0 the "write" and "writeMicroseconds" functions include an optional speed parameter. If used, the servo will move gradually from its current position to the target position at a speed between 1 & 15, 15 being the fastest. This is ignored by earlier version of the servo XB, so the library is forwards and backwards compatible with versions that do and do not recognize the speed parameter.
+As of library version 2.1.0 the "write" and "writeMicroseconds" functions include an optional speed parameter. If used, the servo will move gradually from its current position to the target position at a speed between 1 & 15, 15 being the fastest. This is ignored by earlier version of the servo XB, so the library is forwards and backwards compatible with versions that do and do not recognize the speed parameter.
 
 Using this library is the same as using Arduino's servo library which is very nicely described at http://arduino.cc/en/Reference/Servo
 
