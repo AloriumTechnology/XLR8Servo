@@ -126,7 +126,9 @@ public:
 private:
    uint8_t servoIndex;               // index into the channel data for this servo
    int8_t min;                       // minimum is this value times 4 added to MIN_PULSE_WIDTH    
-   int8_t max;                       // maximum is this value times 4 added to MAX_PULSE_WIDTH   
+   int8_t max;                       // maximum is this value times 4 added to MAX_PULSE_WIDTH
+   volatile uint8_t  * svcrReg  = (volatile uint8_t *) 0x00;
+   volatile uint16_t * svpwReg  = (volatile uint16_t *)0x00;
 };
 
 #else

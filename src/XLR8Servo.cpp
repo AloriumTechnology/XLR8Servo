@@ -27,10 +27,8 @@
 
 #include "XLR8Servo.h"
 
-#define SVCR    _SFR_MEM8(0xFB)
-#define SVPWL   _SFR_MEM8(0xFC)
-#define SVPWH   _SFR_MEM8(0xFD)
-#define SVPW    _SFR_MEM16(0xFC)
+#define XLR8VERS _SFR_MEM16(0xD4)
+
 #define SVEN  7
 #define SVDIS 6
 #define SVUP  5
@@ -45,12 +43,23 @@ uint8_t ServoCount = 0;                                     // the total number 
 
 Servo::Servo()
 {
+
   if( ServoCount < MAX_SERVOS) {
     this->servoIndex = ServoCount++;                    // assign a servo index to this instance
 	  servos[this->servoIndex].microseconds = DEFAULT_PULSE_WIDTH;   // store default values
   }
   else
     this->servoIndex = INVALID_SERVO ;  // too many servos
+
+  // Determine which register addresses to use
+  if (XLR8VERS < 2637) {
+    svcrReg = 0xfa;
+    svpwReg = 0xfc;
+  } else {
+    svcrReg = 0xfb;
+    svpwReg = 0xfc;
+  }
+
 }
 
 uint8_t Servo::attach(int pin)
@@ -69,8 +78,8 @@ uint8_t Servo::attach(int pin, int min, int max)
     // Start the hardware
     uint8_t oldSREG = SREG;
     cli();
-    SVPW = servos[this->servoIndex].microseconds;
-    SVCR = (1 << SVEN) | (1 << SVUP) | (servos[this->servoIndex].Pin.nbr & B11111);
+    *svpwReg = servos[this->servoIndex].microseconds;
+    *svcrReg = (1 << SVEN) | (1 << SVUP) | (servos[this->servoIndex].Pin.nbr & B11111);
     servos[this->servoIndex].Pin.isActive = true;
     SREG = oldSREG;
   }
@@ -80,7 +89,7 @@ uint8_t Servo::attach(int pin, int min, int max)
 void Servo::detach()
 {
   servos[this->servoIndex].Pin.isActive = false;
-  SVCR = (1 << SVDIS) | (servos[this->servoIndex].Pin.nbr & B11111);
+  *svcrReg = (1 << SVDIS) | (servos[this->servoIndex].Pin.nbr & B11111);
 }
 
 void Servo::write(int value, int speed)
@@ -113,8 +122,8 @@ void Servo::writeMicroseconds(int value, int speed)
     cli();
     servos[channel].microseconds = value;
     // Copy new value to the hardware
-    SVPW = (0xF000 & (speed << 12)) | (0x0FFF & servos[channel].microseconds);
-    SVCR = (1 << SVUP) | (servos[channel].Pin.nbr & B11111);
+    *svpwReg = (0xF000 & (speed << 12)) | (0x0FFF & servos[channel].microseconds);
+    *svcrReg = (1 << SVUP) | (servos[channel].Pin.nbr & B11111);
     SREG = oldSREG;
   }
 }
